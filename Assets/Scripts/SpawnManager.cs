@@ -1,16 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting.Antlr3.Runtime.Tree;
 using UnityEngine;
 
 public class SpawnManager : MonoBehaviour
 {
   public GameObject enemyPrefab;
+  public GameObject powerupPrefab;
   private float spawnRange = 9;
   public int enemyCount;
+  public int waveNumber =1;
   // Start is called before the first frame update
   void Start()
   {
-    SpawnEnemyWave(3);
+    SpawnEnemyWave(waveNumber);
+    Instantiate(powerupPrefab, GenerateSpawnPosition(), powerupPrefab.transform.rotation);
   }
 
   void SpawnEnemyWave(int enemiesToSpawn)
@@ -26,7 +30,9 @@ public class SpawnManager : MonoBehaviour
   {
     enemyCount = FindObjectsOfType<Enemy>().Length;
     if(enemyCount ==0){
-      SpawnEnemyWave(4);
+      waveNumber++;
+      SpawnEnemyWave(waveNumber);
+      Instantiate(powerupPrefab, GenerateSpawnPosition(), powerupPrefab.transform.rotation);
     }
   }
 
