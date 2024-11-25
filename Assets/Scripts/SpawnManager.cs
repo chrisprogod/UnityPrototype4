@@ -9,12 +9,19 @@ public class SpawnManager : MonoBehaviour
   public GameObject powerupPrefab;
   private float spawnRange = 9;
   public int enemyCount;
-  public int waveNumber =1;
+  public int totalEnemyCount;
+  public int waveNumber = 1;
+
+  public UIManager uiManager; 
+  public SoundManager soundManager;  
+
   // Start is called before the first frame update
   void Start()
   {
+    uiManager = GameObject.Find("UIManager").GetComponent<UIManager>();
+    uiManager.FinaleWaveText.gameObject.SetActive(false);
+    soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>(); 
     SpawnEnemyWave(waveNumber);
-    Instantiate(powerupPrefab, GenerateSpawnPosition(), powerupPrefab.transform.rotation);
   }
 
   void SpawnEnemyWave(int enemiesToSpawn)
@@ -22,6 +29,8 @@ public class SpawnManager : MonoBehaviour
     for (int i = 0; i < enemiesToSpawn; i++)
     {
       Instantiate(enemyPrefab, GenerateSpawnPosition(), enemyPrefab.transform.rotation);
+      Instantiate(powerupPrefab, GenerateSpawnPosition(), powerupPrefab.transform.rotation);
+      totalEnemyCount++;
     }
   }
 
@@ -31,8 +40,9 @@ public class SpawnManager : MonoBehaviour
     enemyCount = FindObjectsOfType<Enemy>().Length;
     if(enemyCount ==0){
       waveNumber++;
+      uiManager.IncrementWave();
       SpawnEnemyWave(waveNumber);
-      Instantiate(powerupPrefab, GenerateSpawnPosition(), powerupPrefab.transform.rotation);
+      soundManager.PlayNewWaveSound(); 
     }
   }
 
