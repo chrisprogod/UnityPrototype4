@@ -14,13 +14,7 @@ public class UIManager : MonoBehaviour
     private int enemyCount;
 
 
-    void Start()
-    {
-        if (spawnManager == null)
-        {
-            Debug.LogError("SpawnManager is not assigned in UIManager.");
-        }
-    }
+
     void Update()
     {
         waveCounterText.text = "Wave: " + waveCount;

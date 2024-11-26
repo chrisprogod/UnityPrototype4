@@ -23,7 +23,6 @@ public class SoundManager : MonoBehaviour
 
     public void GameOverSound()
     {
-        Debug.Log("gameoversound");
         audioSource.clip = gameOverSound;
         audioSource.Play();
     }
