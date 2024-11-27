@@ -14,7 +14,7 @@ public class PlayerController : MonoBehaviour
     public SoundManager soundManager;  
     void Start()
     {
-        speed = 5;
+        speed = 7;
         playerRb = GetComponent<Rigidbody>();
         focalPoint = GameObject.Find("Focal Point");
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
